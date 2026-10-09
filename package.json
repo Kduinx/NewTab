@@ -1,8 +1,8 @@
 {
-  "name": "newTabDemo",
+  "name": "NewTab",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A browser new tab page with Google search and suggestions",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
