@@ -1,0 +1,9 @@
+body {
+  background: rgb(32, 33, 36);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}

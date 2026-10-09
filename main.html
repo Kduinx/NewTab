@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/search_box.css" />
+    <title>Google 搜索新标签页</title>
+  </head>
+
+  <body>
+    <form
+      class="search"
+      role="search"
+      action="https://www.google.com/search"
+      method="get"
+      target="_blank"
+    >
+      <div class="search__box">
+        <button type="submit" class="search__submit" aria-label="搜索">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+            <path
+              d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
+            />
+          </svg>
+        </button>
+
+        <input
+          type="search"
+          id="search-input"
+          name="q"
+          class="search__input"
+          placeholder="在 Google 中搜索…"
+          autocomplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-controls="search-suggestions"
+          aria-activedescendant=""
+          aria-label="搜索"
+        />
+
+        <button type="button" class="search__clear" aria-label="清除" hidden>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <ul
+        id="search-suggestions"
+        class="search__suggestions"
+        role="listbox"
+        aria-label="搜索建议"
+        hidden
+      ></ul>
+    </form>
+
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

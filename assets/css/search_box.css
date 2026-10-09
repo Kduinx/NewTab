@@ -1,0 +1,79 @@
+.search {
+  width: min(100% - 2rem, 40rem);
+  position: relative;
+}
+
+.search__box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dfe1e5;
+  border-radius: 999px;
+  background: #fff;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.search__box:focus-within {
+  border-color: transparent;
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+}
+
+.search__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 1rem;
+  padding: 0.25rem 0;
+}
+
+.search__submit,
+.search__clear,
+.search__voice {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: #5f6368;
+  flex-shrink: 0;
+}
+
+.search__submit:hover,
+.search__clear:hover,
+.search__voice:hover {
+  background: #f1f3f4;
+}
+
+.search__suggestions {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.5rem 0;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  z-index: 10;
+}
+
+.search__suggestions li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #202124;
+}
+
+.search__suggestions li[aria-selected="true"],
+.search__suggestions li:hover {
+  background: #f1f3f4;
+}
