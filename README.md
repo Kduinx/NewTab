@@ -33,7 +33,7 @@ newTabDemo/
 安装依赖：
 
 ```bash
-npm install
+pnpm install
 ```
 
 启动本地服务：
@@ -60,7 +60,3 @@ http://localhost:5500/main.html
 - CSS
 - JavaScript
 - Express
-
-## License
-
-MIT
