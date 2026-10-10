@@ -1,6 +1,42 @@
-.search {
-  width: min(100% - 2rem, 40rem);
+/* 玻璃胶囊：LiquidGlass 的玻璃元素 */
+.search-pill {
   position: relative;
+  /* 建立层叠上下文，否则库注入的 z-index:-1 画布会被背景图盖住 */
+  z-index: 1;
+  width: min(100% - 2rem, 40rem);
+  border-radius: 999px;
+
+  /* 降级样式：库未就绪时使用的 CSS 玻璃（就绪后由 .lg-ready 移除） */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.03) 60%,
+    rgba(255, 255, 255, 0.1)
+  );
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* WebGL 玻璃接管后，移除 CSS 降级样式 */
+.lg-ready .search-pill {
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.search {
+  width: 100%;
+}
+
+/* 库注入的 canvas 需要突破 reset.css 的 max-width:100%，
+   否则位图尺寸（元素宽 + 阴影内边距）会被压缩，导致接缝与边缘错位 */
+.search-pill canvas {
+  max-width: none;
+  max-height: none;
 }
 
 .search__box {
@@ -8,17 +44,6 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #dfe1e5;
-  border-radius: 999px;
-  background: #fff;
-  transition:
-    box-shadow 0.2s,
-    border-color 0.2s;
-}
-
-.search__box:focus-within {
-  border-color: transparent;
-  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
 }
 
 .search__input {
@@ -27,8 +52,16 @@
   border: 0;
   outline: 0;
   background: transparent;
+  color: #e8eaed;
   font-size: 1rem;
   padding: 0.25rem 0;
+  /* root 被库设为 user-select:none，这里恢复 */
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.search__input::placeholder {
+  color: rgba(232, 234, 237, 0.6);
 }
 
 .search__submit,
@@ -42,26 +75,48 @@
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  color: #5f6368;
+  color: #e8eaed;
   flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+/* 搜索图标纯白 */
+.search__submit {
+  color: #fff;
 }
 
 .search__submit:hover,
 .search__clear:hover,
 .search__voice:hover {
-  background: #f1f3f4;
+  background: rgba(255, 255, 255, 0.12);
 }
 
+.search__submit:disabled {
+  color: rgba(232, 234, 237, 0.4);
+  cursor: default;
+}
+
+.search__submit:disabled:hover {
+  background: transparent;
+}
+
+/* 建议列表：位于玻璃元素之外，绝对定位在胶囊下方 */
 .search__suggestions {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  right: 0;
+  top: calc(50% + 2.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 2rem, 40rem);
   margin: 0;
   padding: 0.5rem 0;
-  border-radius: 0.75rem;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  background: rgba(30, 32, 38, 0.75);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.55);
   list-style: none;
   z-index: 10;
 }
@@ -70,10 +125,10 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 0.95rem;
-  color: #202124;
+  color: #e8eaed;
 }
 
 .search__suggestions li[aria-selected="true"],
 .search__suggestions li:hover {
-  background: #f1f3f4;
+  background: rgba(255, 255, 255, 0.1);
 }

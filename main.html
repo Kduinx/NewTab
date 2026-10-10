@@ -10,49 +10,70 @@
   </head>
 
   <body>
-    <form
-      class="search"
-      role="search"
-      action="https://www.google.com/search"
-      method="get"
-      target="_blank"
-    >
-      <div class="search__box">
-        <button type="submit" class="search__submit" aria-label="搜索">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
-            <path
-              d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
-            />
-          </svg>
-        </button>
+    <!-- root：LiquidGlass 的容器，玻璃元素必须是它的直接子元素 -->
+    <div id="root" class="stage">
+      <!-- 背景图（root 内的兄弟元素，库会直接 drawImage 采样用于折射） -->
+      <img
+        class="stage__bg"
+        src="/assets/img/background.png"
+        alt=""
+        aria-hidden="true"
+      />
 
-        <input
-          type="search"
-          id="search-input"
-          name="q"
-          class="search__input"
-          placeholder="在 Google 中搜索…"
-          autocomplete="off"
-          role="combobox"
-          aria-autocomplete="list"
-          aria-expanded="false"
-          aria-controls="search-suggestions"
-          aria-activedescendant=""
-          aria-label="搜索"
-        />
+      <!-- 玻璃胶囊：视觉层 -->
+      <div class="search-pill" id="search-glass">
+        <form
+          class="search"
+          role="search"
+          action="https://www.google.com/search"
+          method="get"
+          target="_blank"
+        >
+          <div class="search__box">
+            <button type="submit" class="search__submit" aria-label="搜索">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                fill="currentColor"
+              >
+                <path
+                  d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
+                />
+              </svg>
+            </button>
 
-        <button type="button" class="search__clear" aria-label="清除" hidden>
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
-            <path
-              d="M6 6l12 12M18 6L6 18"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
+            <input
+              type="search"
+              id="search-input"
+              name="q"
+              class="search__input"
+              placeholder="在 Google 中搜索…"
+              autocomplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="search-suggestions"
+              aria-activedescendant=""
+              aria-label="搜索"
             />
-          </svg>
-        </button>
+
+            <button type="button" class="search__clear" aria-label="清除" hidden>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </form>
       </div>
 
+      <!-- 建议列表：放在玻璃元素之外，避免每次输入都触发玻璃重采样 -->
       <ul
         id="search-suggestions"
         class="search__suggestions"
@@ -60,8 +81,9 @@
         aria-label="搜索建议"
         hidden
       ></ul>
-    </form>
+    </div>
 
     <script src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/glass.js"></script>
   </body>
 </html>
